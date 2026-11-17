@@ -11,8 +11,10 @@
 //    they're used in the file naming convention too.
 // ============================================================
 
-const SUPABASE_URL = "https://pqrwxsuumxrteehtkrnt.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_e7p5QOSrfHaPDH75YBE8xw_KGAakeGw";
+// Replace these with your new Supabase project details.
+// This project was cloned from another workspace, so the old keys are intentionally not used here.
+const SUPABASE_URL = "https://your-new-project.supabase.co";
+const SUPABASE_ANON_KEY = "paste-your-new-anon-key-here";
 
 // Public WhatsApp Business number shown when members link their account.
 // This is not an API token or secret.
