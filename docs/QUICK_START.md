@@ -19,14 +19,14 @@ You're using a **data collection and intelligence management system** to:
 ### 1. Get Supabase Credentials
 - Go to [supabase.com](https://supabase.com) → create a free project
 - Copy **Project URL** and **Anon public key** from Settings → API
-- Paste into `config.js`:
+- Paste into `src/web/src/web/config.js`:
   ```javascript
   const SUPABASE_URL = "your-url";
   const SUPABASE_ANON_KEY = "your-key";
   ```
 
 ### 2. Add Your KIT, KINs, and KIQs
-Replace example content in `config.js`:
+Replace example content in `src/web/src/web/config.js`:
 ```javascript
 const KIT = "Your Key Intelligence Topic from Practical 1";
 const KINS = [
@@ -162,8 +162,8 @@ NEUROBAND_KIN2_KIQ1_NewsArticle_20240312_BusinessInsiderAfrica.pdf
 
 | Problem | Solution |
 |---------|----------|
-| Can't log in? | Use correct email; click **Sign up** if new. Check `config.js`. |
-| Dropdowns empty? | Admin must update `config.js` with KINs. Refresh page. |
+| Can't log in? | Use correct email; click **Sign up** if new. Check `src/web/src/web/config.js`. |
+| Dropdowns empty? | Admin must update `src/web/src/web/config.js` with KINs. Refresh page. |
 | File won't upload? | Use PDF, PNG, JPG, or Word. Under 10 MB. |
 | Can't edit plan? | Click **Edit** button. Only admins can save. |
 

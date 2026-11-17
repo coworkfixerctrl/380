@@ -27,36 +27,36 @@ The app provides:
 ## 📖 Getting Started
 
 ### 1. Read the Guides
-- **[USER_INSTRUCTIONS.md](USER_INSTRUCTIONS.md)** — Complete guide for how to use every feature
-- **[QUICK_START.md](QUICK_START.md)** — One-page printable reference
-- **[WHATSAPP_SETUP.md](WHATSAPP_SETUP.md)** — Meta Cloud API setup, deployment, task alerts, and source intake
+- **[docs/USER_INSTRUCTIONS.md](docs/USER_INSTRUCTIONS.md)** — Complete guide for how to use every feature
+- **[docs/QUICK_START.md](docs/QUICK_START.md)** — One-page printable reference
+- **[docs/WHATSAPP_SETUP.md](docs/WHATSAPP_SETUP.md)** — Meta Cloud API setup, deployment, task alerts, and source intake
 
 ### 2. Initial Setup (Admin Only)
-Edit `config.js` and add:
+Edit `src/web/src/web/config.js` and add:
 - Your Supabase project URL and API key
 - Your group's Key Intelligence Topic (KIT)
 - All Key Intelligence Needs (KINs) and Questions (KIQs) from Practical 1
 
 ### 3. Open the App
-1. Save `config.js`
+1. Save `src/web/src/web/config.js`
 2. Open `landing.html` in a web browser
 3. Sign in with Google or your approved email account
 
 ### Google Sign-In, Approval, and Hub Guide
-1. Run the updated `schema.sql` in the Supabase SQL Editor. Existing members will need to submit their profile once; new accounts start pending.
+1. Run the updated `supabase/supabase/schema.sql` in the Supabase SQL Editor. Existing members will need to submit their profile once; new accounts start pending.
 2. In Supabase Authentication → Providers, enable Google and add the Google OAuth client ID and secret from Google Cloud Console.
 3. In Google Cloud Console, add `https://<project-ref>.supabase.co/auth/v1/callback` as an authorized redirect URI.
 4. In Supabase Authentication → URL Configuration, set the site URL and allow the deployed `landing.html` URL, the workspace `index.html` URL, and local development URLs as redirects.
 5. Admins approve or revoke workspace access from each member card in the Team tab. Every member must submit a name and short bio before using the workspace; profile photos remain optional.
 6. Set up Hub Guide:
   - **Create the OpenAI API key:** Sign in at [OpenAI Platform API keys](sk-...5gsA), create a project secret key, and copy it when shown. ChatGPT subscriptions and API billing are separate; enable API billing for the OpenAI project if needed.
-  - **Store the key in Supabase:** Open your Supabase project → **Project Settings → Edge Functions → Secrets**. Add a secret named `OPENAI_API_KEY` and paste the key as its value. Never put it in `config.js`, the browser, or a message.
+  - **Store the key in Supabase:** Open your Supabase project → **Project Settings → Edge Functions → Secrets**. Add a secret named `OPENAI_API_KEY` and paste the key as its value. Never put it in `src/web/src/web/config.js`, the browser, or a message.
   - **Authenticate the Supabase CLI:** From this repository, run `npx supabase login` and complete the browser sign-in. The CLI uses browser authorization; it does not need an OpenAI key or a verification code. If using a headless terminal, create a Supabase personal access token in **Supabase Dashboard → Account → Access Tokens**, then follow the CLI prompt to authenticate with that token. Do not share the token.
   - **Deploy Hub Guide:** Run `npx supabase functions deploy site-guide --project-ref pqrwxsuumxrteehtkrnt` from the repository root.
   - **Verify deployment:** In a terminal, run `curl -i -X OPTIONS https://pqrwxsuumxrteehtkrnt.supabase.co/functions/v1/site-guide`. A deployed function responds with HTTP 200. Then refresh the site and ask Hub Guide where a page or feature is located.
   - `SITE_GUIDE_MODEL` is optional and defaults to `gpt-4o-mini`.
 
-Hub Guide only answers site navigation and feature-use questions. It does not receive repository records or files, recommend sources, or upload content. User questions and recent chat turns are sent to the configured AI provider. Never put the AI key in `config.js` or browser code.
+Hub Guide only answers site navigation and feature-use questions. It does not receive repository records or files, recommend sources, or upload content. User questions and recent chat turns are sent to the configured AI provider. Never put the AI key in `src/web/src/web/config.js` or browser code.
 
 ---
 
@@ -68,7 +68,7 @@ Hub Guide only answers site navigation and feature-use questions. It does not re
 - Upload actual files (PDF, images, etc.) or queue a valid HTTP(S) source URL
 - Auto-generated file naming follows convention
 - Search & filter by KIN, KIQ, source type
-- Source records and pending links are available only to signed-in, approved members; apply the latest `schema.sql` to enable uploads, link intake, and file cleanup
+- Source records and pending links are available only to signed-in, approved members; apply the latest `supabase/supabase/schema.sql` to enable uploads, link intake, and file cleanup
 
 ### Analysis Dashboard
 - **KIN Coverage:** See how many sources address each intelligence need
@@ -123,7 +123,7 @@ Every entry must include:
 ## 🚀 Workflow
 
 ### Week 1–2: Setup & Planning
-1. Admin configures Supabase & adds KIT/KINs to config.js
+1. Admin configures Supabase & adds KIT/KINs to src/web/config.js
 2. Team writes Collection Plan (where to search, what to include/exclude)
 3. Assign data collection tasks by KIN
 
@@ -161,23 +161,36 @@ Every entry must include:
 
 ```
 Neuroband-Intelligence-Hub/
-├── index.html              # Main app (open this in browser)
-├── app.js                  # App logic (don't edit)
-├── config.js               # Configuration (EDIT with your KIT/KINs)
-├── style.css               # Styling
-├── schema.sql              # Database setup (Supabase)
-├── package.json            # Project metadata
-├── README.md               # This file
-├── USER_INSTRUCTIONS.md    # Complete user guide
-├── QUICK_START.md          # One-page reference
-└── config.example.js       # Example configuration
+├── index.html                    # Main app entry point
+├── landing.html                  # Sign-in / access page
+├── src/
+│   └── web/
+│       ├── app.js                # App logic (don't edit)
+│       ├── src/web/config.js             # Configuration (EDIT with your KIT/KINs)
+│       ├── landing.js            # Landing-page auth logic
+│       ├── style.css             # Shared styling
+│       └── landing.css           # Access-page styling
+├── supabase/
+│   ├── supabase/schema.sql                # Database setup (Supabase)
+│   └── functions/
+│       ├── _shared/
+│       │   └── whatsapp.ts       # WhatsApp helper functions
+│       └── whatsapp-webhook/
+│           └── index.ts          # WhatsApp intake endpoint
+├── docs/
+│   ├── USER_INSTRUCTIONS.md      # Complete user guide
+│   ├── QUICK_START.md            # One-page reference
+│   └── WHATSAPP_SETUP.md         # WhatsApp setup guide
+├── package.json                  # Project metadata
+├── README.md                     # This file
+└── package-lock.json             # Dependency lock file
 ```
 
 ---
 
 ## ⚙️ Configuration
 
-All configuration happens in **`config.js`**:
+All configuration happens in **`src/web/src/web/config.js`**:
 
 ```javascript
 // 1. Add your Supabase credentials
@@ -216,10 +229,10 @@ const ADMIN_EMAILS = ["admin1@email.com", "admin2@email.com"];
 ## 📞 Troubleshooting
 
 ### "Dropdowns are empty"
-→ Admin must update `config.js` with KINs and refresh the page
+→ Admin must update `src/web/src/web/config.js` with KINs and refresh the page
 
 ### "I can't sign in"
-→ Make sure Supabase credentials are correct in `config.js`
+→ Make sure Supabase credentials are correct in `src/web/src/web/config.js`
 
 ### "File upload failed"
 → Try PDF or image format, ensure file is under 10 MB
@@ -256,8 +269,8 @@ Include:
 
 ## 📖 For More Information
 
-- **Full instructions:** See [USER_INSTRUCTIONS.md](USER_INSTRUCTIONS.md)
-- **Quick reference:** See [QUICK_START.md](QUICK_START.md)
+- **Full instructions:** See [docs/USER_INSTRUCTIONS.md](docs/USER_INSTRUCTIONS.md)
+- **Quick reference:** See [docs/QUICK_START.md](docs/QUICK_START.md)
 - **Assignment brief:** Refer to INL 380 course material
 - **Supabase docs:** [supabase.com](https://supabase.com)
 
@@ -265,8 +278,8 @@ Include:
 
 **Ready to get started?** 🚀
 
-1. Read [QUICK_START.md](QUICK_START.md) (5 minutes)
-2. Have an admin configure `config.js` and Supabase
+1. Read [docs/QUICK_START.md](docs/QUICK_START.md) (5 minutes)
+2. Have an admin configure `src/web/src/web/config.js` and Supabase
 3. Sign in and write your Collection Plan
 4. Start collecting data!
 

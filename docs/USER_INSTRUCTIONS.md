@@ -50,7 +50,7 @@ An admin team member must:
 
 1. Open the browser's **Developer Tools** (F12 or Ctrl+Shift+I).
 2. Navigate to **Console**.
-3. Find these lines in `config.js` and update them:
+3. Find these lines in `src/web/src/web/config.js` and update them:
 
 ```javascript
 const SUPABASE_URL = "your-supabase-url";
@@ -62,11 +62,11 @@ const SUPABASE_ANON_KEY = "your-anon-key";
 - In your Supabase project dashboard:
   - Click **Project Settings** → **API**.
   - Copy your **Project URL** and **Anon public key**.
-  - Paste these into the app's `config.js` file.
+  - Paste these into the app's `src/web/src/web/config.js` file.
 
 ### Step 2: Add Your KIT and KINs (Admin Only)
 
-Still in `config.js`, replace the example content with your group's actual Key Intelligence Topic, Needs, and Questions from Practical 1 and 3:
+Still in `src/web/src/web/config.js`, replace the example content with your group's actual Key Intelligence Topic, Needs, and Questions from Practical 1 and 3:
 
 ```javascript
 const KIT = "Your actual KIT statement here";
@@ -95,7 +95,7 @@ const KINS = [
 
 ### Step 3: Customize Source Types (Optional)
 
-In `config.js`, you can adjust the source type options shown in dropdowns:
+In `src/web/src/web/config.js`, you can adjust the source type options shown in dropdowns:
 
 ```javascript
 const SOURCE_TYPES = [
@@ -487,12 +487,12 @@ The assignment requires a **10-minute presentation** explaining:
 #### **"I can't sign in"**
 - Check that your email is spelled correctly.
 - If you're a new user, click **Sign up** instead of **Sign in**.
-- Check that Supabase credentials are correctly configured in `config.js`.
+- Check that Supabase credentials are correctly configured in `src/web/src/web/config.js`.
 
 #### **"The dropdowns are empty (no KINs/KIQs showing)"**
-- An admin must have updated `config.js` with your KIT and KINS.
-- After editing `config.js`, refresh the browser (Ctrl+R or Cmd+R).
-- Check that the JSON syntax in `config.js` is correct (no missing quotes or commas).
+- An admin must have updated `src/web/src/web/config.js` with your KIT and KINS.
+- After editing `src/web/src/web/config.js`, refresh the browser (Ctrl+R or Cmd+R).
+- Check that the JSON syntax in `src/web/src/web/config.js` is correct (no missing quotes or commas).
 
 #### **"I can't upload a file"**
 - Ensure the file is a common format: PDF, PNG, JPG, or Word document.
@@ -508,7 +508,7 @@ The assignment requires a **10-minute presentation** explaining:
 - Check the **Activity** log to see if entries were created.
 
 #### **"I need to change the KIT or KINs"**
-- Only an admin can edit `config.js` directly.
+- Only an admin can edit `src/web/src/web/config.js` directly.
 - Changes take effect after a page refresh.
 - **Warning:** Changing KIN/KIQ IDs may break links to existing entries. Plan carefully.
 

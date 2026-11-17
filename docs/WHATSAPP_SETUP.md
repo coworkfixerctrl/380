@@ -7,7 +7,7 @@ The WhatsApp integration uses Meta WhatsApp Cloud API and Supabase Edge Function
 - A Meta Business portfolio, WhatsApp Business phone number, and Meta app with WhatsApp Cloud API enabled.
 - A production access token and the phone number ID from Meta.
 - Supabase CLI installed and this project linked to the correct Supabase project.
-- Run the updated `schema.sql` in the Supabase SQL Editor before deploying the functions.
+- Run the updated `supabase/supabase/schema.sql` in the Supabase SQL Editor before deploying the functions.
 - Create and get approval for a WhatsApp Utility template named `task_assigned`, with English body text:
 
   `New Neuroband task: {{1}}. Due: {{2}}.`
@@ -16,11 +16,11 @@ The template carries only the task title and due date. Meta requires an approved
 
 ## Configure the Public Number
 
-Set `WHATSAPP_BUSINESS_NUMBER` in `config.js` to the WhatsApp Business number in international format, for example `+27...`. This number is shown in the Team tab and used to open a prefilled WhatsApp message. It is not a secret.
+Set `WHATSAPP_BUSINESS_NUMBER` in `src/web/src/web/config.js` to the WhatsApp Business number in international format, for example `+27...`. This number is shown in the Team tab and used to open a prefilled WhatsApp message. It is not a secret.
 
 ## Store Server Secrets
 
-Set these in Supabase Edge Function secrets, not in `config.js`, HTML, or browser JavaScript:
+Set these in Supabase Edge Function secrets, not in `src/web/src/web/config.js`, HTML, or browser JavaScript:
 
 ```sh
 supabase secrets set \
@@ -73,7 +73,7 @@ A task alert is sent for new assignments and admin reassignments only when the a
 
 After linking, send a PDF, JPEG, PNG, or WebP file no larger than 20 MB to the business number. The bot asks for the KIN, KIQ, source title, author/publisher, source type, publication date, and relevance. Reply `SKIP` if the publication date is unknown or `CANCEL` to remove the in-progress upload. After the final answer, the file is stored in Supabase Storage and a corresponding entry is added to the Repository and Activity log.
 
-The intake choices are defined in `supabase/functions/whatsapp-webhook/index.ts`. Keep its KIN/KIQ IDs and source-type options aligned with `config.js` when those values change.
+The intake choices are defined in `supabase/functions/whatsapp-webhook/index.ts`. Keep its KIN/KIQ IDs and source-type options aligned with `src/web/src/web/config.js` when those values change.
 
 ## Privacy and Limits
 
